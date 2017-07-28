@@ -1,0 +1,35 @@
+<form role="form" name="dashboardTemplateForm">
+  <label>IP Address:</label>
+  <input type="text" class="form-control" ng-model="ipaddress"
+   ng-pattern="/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/"
+   required ng-maxlength="64" name="ipaddress" ng-required="0==0" style="margin-bottom:10px;">
+
+  <div ng-show="ipaddress && !dashboardTemplateForm.ipaddress.$error.pattern">
+  <div class="form-group finder-form">
+    <div class="finder-form-options">
+    </div>
+    <div class="clearfix visible-xs-block"></div>
+    <input
+      input-focus
+      ng-model="filter"
+      ng-attr-placeholder="{{finder.properties.noun}} Filter"
+      ng-keydown="finder.filterKeyDown($event)"
+      class="form-control"
+      name="filter"
+      type="text" />
+  </div>
+<paginate list="finder.hits" per-page="50">
+<ul ng-class="{'select-mode': finder.selector.enabled}">
+    <li ng-class="{'active': finder.selector.index === $index && finder.selector.enabled}"
+      ng-repeat="hit in page"
+      ng-keydown="finder.hitKeyDown($event, page, paginate)">
+      <div class="radio">
+         <label><input type="radio" name="template"
+             ng-model="template.dashboard" ng-click="finder.onChoose(hit,
+             $event)">{{hit.title}}</label>
+       </div>
+   </li>
+   </ul>  
+  </paginate>
+  </div>
+</form>

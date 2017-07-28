@@ -1,0 +1,81 @@
+@import (reference) "~ui/styles/mixins.less";
+
+.category-vis {
+  width: 100%;
+  position:relative;
+
+  .container {
+     width: 100%;
+     height: 100%;
+  }
+
+  .category-header {
+      margin-top: 15px;
+  }
+
+  .category-image {
+  }
+ 
+  .category-title {
+      font-size: 20px;
+      color: white;
+  }
+ 
+  .category-toggle {
+      position:absolute;
+      bottom:5px;
+      margin-left:47%;
+      color: white;
+  }
+ 
+  .category-description {
+      font-size: 15px;
+      text-align: center;
+      padding-top: 20px;
+      color: white;
+  }
+ 
+  .category-dashboard {
+      color: white;
+      padding-top: 20px;
+  }
+ 
+  .category-dashboard-ul {
+      padding-left:15px;
+  }
+ 
+  .category-dashboard-li {
+      color: white !important;
+  }
+
+  .category-dashboard-link {
+     padding-left: 5px;
+  }
+}
+
+.vis-editor {
+
+  &.vis-type-category {
+
+    .visualization-options {
+      .flex-parent();
+      flex: 1 1 auto;
+    }
+
+    .category-vis-options {
+      .flex-parent();
+      flex: 1 1 auto;
+
+      textarea {
+        flex: 1 1 auto;
+        resize: none;
+      }
+
+    }
+
+    .category-param-label {
+       padding-top: 8px;
+    }
+  }
+
+}

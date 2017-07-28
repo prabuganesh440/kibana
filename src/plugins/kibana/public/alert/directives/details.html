@@ -1,0 +1,430 @@
+<div class="container-fluid alert-body-container" role="main" ng-show="!list_alert">
+  <form name ="alertcfgForm">
+
+    <h4 class="step-title"> <span class="step-indicator">1</span> What's the alert about ?</h4>
+    <div class="alert-section">
+        <div class="row alert-component-wrapper">
+            <div class="col-md-4">
+                <div class="row">
+                     <div class="col-md-4">
+                        <p class="alert-component-label">Summary
+                        <kbn-tooltip text="Value filled in here will give a summary in the alert generated. Example: ex: Link Status Down, CPU Utilization High"
+                            placement="right" append-to-body="1">
+                            <i class="fa fa-question-circle"></i>
+                        </kbn-tooltip>
+                     </div>
+                     <div class="col-md-8">
+                        <input type="text" class="alert-select"
+                                ng-model="summary"
+                                name="summary"
+                                ng-maxlength="100"
+                                ng-class="{error: alertcfgForm.summary.$error.required}">
+                        <p class="error-highlight" ng-show="alertcfgForm.summary.$error.maxlength"> 'Summary' content must be less than 100 characters</p>
+                     </div>
+                </div>
+                <div class="row">
+                     <div class="col-md-4">
+                        <p class="alert-component-label">Severity</p>
+                     </div>
+                     <div class="col-md-8">
+                        <select class="alert-select"
+                                ng-model="severity"
+                                name="severity"
+                                ng-class="{error:alertcfgForm.severity.$error.required}" required>
+                            <option value="information">Information</option>
+                            <option value="warning">Warning</option>
+                            <option value="error">Error</option>
+                            <option value="critical">Critical</option>
+                        </select>
+                     </div>
+                </div>
+                <div class="row rule-level-threshold-wrapper">
+                  <div class="col-md-8">
+                    <span class="alert-component-label rule-level-label"> Rule Level Threshold
+                      <kbn-tooltip text="When enabled, compare the results of Rule Evaluation Criteria against a threshold. Enabling this will result in alerts getting generated only when the evaluation criteria is satisfied. For example, If evaluation criteria is (R1 + R2) > 100, alert is generated when sum of alerts condition-1 and alert condition-2 is greater than 100.We can also write this as RESULT = (R1 + R2) > 100. More complex evaluation criterias can be added in python script format."
+                        placement="right" append-to-body="1">
+                        <i class="fa fa-question-circle"></i>
+                    </kbn-tooltip>
+                    </span>
+                    <input type="checkbox" class="rule-level-checkbox"
+                      ng-model="ruleLevelThreshold"
+                      ng-change="resetFieldsOnRuleLevelSelection()"
+                      name="ruleLevelThreshold">
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-2">
+                        <p class="alert-component-label">Description</p>
+                    </div>
+                    <div class="col-md-10">
+                        <textarea type="text" rows="4" cols="40"
+                                  class="alert-description"
+                                  name="alertDescription"
+                                  ng-model="description"
+                                  ng-maxlength="200"
+                                  maxlength="200"
+                                  ng-class="{error: alertcfgForm.alertDescription.$error.required}" required>
+                        </textarea>
+                        <p class="error-highlight"
+                           ng-show="alertcfgForm.alertDescription.$error.maxlength"> 'Description' content must be less than 200 characters
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h4 class="step-title"><span class="step-indicator">2</span> Set the alert conditions</h4>
+    <div data-ng-repeat="rule in ruleList track by $index" ng-init="outerIndex=$index">
+        <div class="alert-section">
+          <div class="row bottom-space">
+            <div class="rule-number-wrapper col-md-6 col-sm-6 col-xs-9">
+              <h5 class="rule-number">
+                R{{$index + 1}}
+              </h5>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-9">
+              <button ng-if="ruleList.length > 1" type="button" class="remove crud_buttons pull-right" ng-click="removeRule($index)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+            </div>
+          </div>
+          <div class="alert-component-wrapper">
+            <div class="row bottom-space">
+                <p class="alert-component-label alert-condition">Check data source</p>
+                <select class="alert-select alert-condition" name="selectedIndex"
+                    ng-options="option for option in indexPatternIds"
+                    ng-model="rule.selectedIndex"
+                    ng-class="{error: alertcfgForm.rule.selectedIndex.$error.required}"
+                    ng-change="setIndexPattern(rule, $index)" required>
+                </select>
+            </div>
+            <div ng-show="ruleLevelThreshold" class="row bottom-space">
+              <p class="alert-component-label alert-condition">
+                Add a threshold
+                <kbn-tooltip text="Enabling this checkbox will allow sub rules to add a threshold value"
+                    placement="right" append-to-body="1">
+                    <i class="fa fa-question-circle"></i>
+                </kbn-tooltip>
+                <input type="checkbox"
+                       name="enableComparisionFields"
+                       class="alert-checkbox"
+                       ng-change="resetComparisionFields(rule)"
+                       ng-model="rule.enableComparisionFields">
+              </p>
+            </div>
+            <div class="row bottom-space">
+                <p class="alert-condition alert-component-label">Calculate </p>
+                <select class="alert-select alert-condition"
+                       ng-model="rule.rule_type"
+                       ng-change="updateRuleType(rule, $index)"
+                       name="ruleType"
+                       ng-class="{error: alertcfgForm.rule.ruleType.$error.required}" required>
+                    <option value="count">Count</option>
+                    <option value="sum">Sum</option>
+                    <option value="average">Average</option>
+                    <option value="unique_values">Unique values</option>
+                    <option value="state_change">State Change</option>
+                </select>
+                <p class="alert-condition alert-component-label">of</p>
+                <div ng-hide="operRuleList[$index].targetFieldInvisibility" class="alert-condition">
+                    <div ng-show="!operRuleList[$index].sumOrAverageIsSelected">
+                        <select class="alert-select"
+                                name="selectedField"
+                                ng-options="field.name group by field.type for field in operRuleList[$index].indexFields"
+                                ng-model="operRuleList[$index].selectedField"
+                                ng-required="!operRuleList[$index].targetFieldInvisibility"
+                                ng-class="{error: alertcfgForm.rule.selectedField.$error.required}">
+                        </select>
+                    </div>
+                    <div ng-show="operRuleList[$index].sumOrAverageIsSelected">
+                        <select class="alert-select"
+                                name="selectedField"
+                                ng-options="field.name group by field.type for field in operRuleList[$index].indexFields | filter:field.type='number'"
+                                ng-model="operRuleList[$index].selectedField"
+                                ng-required="!operRuleList[$index].targetFieldInvisibility"
+                                ng-class="{error: alertcfgForm.rule.selectedField.$error.required}">
+                        </select>
+                    </div>
+                </div>
+                <p class="alert-condition alert-component-label" ng-show="operRuleList[$index].countIsSelected">events</p>
+                <div ng-if="operRuleList[$index].metricIsSelected">
+                  <div ng-if="!ruleLevelThreshold || rule.enableComparisionFields">
+                    <p class="alert-condition alert-component-label"> and alert when it is</p>
+                    <select class="alert-select alert-condition"
+                            ng-model="rule.compare_type"
+                            name="compareType"
+                            ng-class="{error: alertcfgForm.rule.compareType.$error.required}"
+                            ng-required="!ruleLevelThreshold || rule.enableComparisionFields">
+                        <option value=""></option>
+                        <option value="equal">equal to</option>
+                        <option value="lesser">less than</option>
+                        <option value="greater">greater than</option>
+                    </select>
+                    <input type="number" class="alert-numericals alert-condition"
+                           ng-model="rule.compare_value"
+                           name="compareValue"
+                           ng-class="{error: alertcfgForm.rule.compareValue.$error.required}"
+                           ng-required="!ruleLevelThreshold || rule.enableComparisionFields">
+                  </div>
+                  <div class="alert-condition alert-component-label">in last</div>
+                  <input type="number"
+                      class="alert-numericals alert-condition"
+                      ng-model="rule.rule_type_duration"
+                      min="1"
+                      name="ruleTypeDuration"
+                      ng-class="{error: alertcfgForm.rule.ruleTypeDuration.$error.required}"
+                      ng-required="operRuleList[$index].sumOrAverageIsSelected">
+                  <select class="alert-select alert-condition"
+                          ng-model="rule.rule_type_duration_type"
+                          name="ruleTypeDurationType"
+                          ng-class="{error: alertcfgForm.rule.ruleTypeDurationType.$error.required}"
+                          ng-required="operRuleList[$index].sumOrAverageIsSelected">
+                      <option value="minute">Minute</option>
+                      <option value="hour">Hour</option>
+                      <option value="day">Day</option>
+                      <option value="week">Week</option>
+                      <option value="month">Month</option>
+                  </select>
+                </div>
+            </div>
+            <div class="row bottom-space">
+                <p class="alert-condition alert-component-label">Alert separately for each
+                    <kbn-tooltip text="Alert separately based on these parameters. For example in case of Bandwidth utilization, you would want to alert separately for each interface of each router. In such a case, you would select data source as 'vunet-1-1-network-health-*' and first value in this field as 'host' and the next field as 'name'"
+                        placement="right" append-to-body="1">
+                        <i class="fa fa-question-circle"></i>
+                    </kbn-tooltip></p>
+                </p>
+                <div class="alert-condition">
+                    <div data-ng-repeat="item in operRuleList[$index].groupByField track by $index" ng-init="innerIndex=$index">
+                        <p>
+                            <select class="alert-select groupby-option"
+                                    name="groupByField"
+                                    ng-options="field.name group by field.type for field in operRuleList[outerIndex].indexFields"
+                                    ng-model="item.data">
+                                    <option> </option>
+                            </select>
+                            <button ng-show="operRuleList[outerIndex].groupByField.length > 1" class="crud_buttons" type="button" class="remove" ng-click="removeGroupByField(outerIndex, innerIndex)">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </button>
+                        </p>
+                    </div>
+                    <div class="row bottom-space" ng-show="operRuleList[$index].groupByField.length < 3">
+                        <button class="add-new-field" type="button"
+                                ng-click="addNewGroupByField($index)">
+                                <span>Add another field</span>
+                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row bottom-space">
+                <p class="alert-component-label alert-condition">Filter
+                <kbn-tooltip text="Use this to enter additional filters.To perform a free text based filter, simply enter a text string. To filter based on a value in a specific field, prefix the value with the name of the field. For example, enter status:200 to limit the rule to data that contain the value 200 in the status field. To specify multiple such conditions, use operators"
+                    placement="right" append-to-body="1">
+                    <i class="fa fa-question-circle"></i>
+                </kbn-tooltip></p>
+                <input type="text"
+                        class="alert-filter alert-condition"
+                        name="filter"
+                        ng-model="rule.alert_filter">
+            </div>
+          </div>
+        </div>
+    </div>
+    <div ng-if="ruleList.length < 4">
+        <button type="button" class="add-new-rule-button" ng-click="addNewRule()">
+            <span>Add a new condition </span>
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+        </button>
+    </div>
+
+    <h4 class="step-title"> <span class="step-indicator">3</span> Rule Evaluation Conditions </h4>
+
+    <div class="alert-section">
+      <div class="alert-component-wrapper">
+        <div class="row">
+          <div class="col-md-7">
+            <div class="row bottom-space">
+                <p class="alert-component-label alert-condition">
+                    Evaluation criteria
+                    <kbn-tooltip text="Formula for evaluation of the rule result from individual alert conditions. For example, if alert condition-1(R1) counts the number successful requests, and alert condition-2(R2) counts the number of failed requests, an Evaluation criteria R1 + R2 will evaluate the total number of requests. Complex scripting is supported in the Evaluation criteria. Individual alert condition results can be referred to as R1, R2 etc in the Evaluation Criteria."
+                      placement="right" append-to-body="1">
+                      <i class="fa fa-question-circle"></i>
+                    </kbn-tooltip>
+                </p>
+                <div class="alert-condition">
+                    <textarea type="text" rows="6" cols="80"
+                              class="alert-description"
+                              name="evalExpression"
+                              class="alert-select"
+                              ng-model="eval_criteria.expression"
+                    ></textarea>
+                </div>
+            </div>
+            <div ng-if="ruleLevelThreshold" class="row bottom-space">
+              <p class="alert-component-label alert-condition">
+                Alert when evaluation criteria result is
+              </p>
+              <select class="alert-select alert-condition"
+                ng-model="eval_criteria.compare_type"
+                name="evalCriteriaCompareType"
+                ng-class="{error: alertcfgForm.evalCriteriaCompareType.$error.required}"
+                ng-required="ruleLevelThreshold">
+                <option value=""></option>
+                <option value="equal">equal to</option>
+                <option value="lesser">less than</option>
+                <option value="greater">greater than</option>
+              </select>
+              <input type="number" class="alert-numericals alert-condition"
+                     ng-model="eval_criteria.compare_value"
+                     name="evalCriteriaCompareValue"
+                     ng-class="{error: alertcfgForm.evalCriteriaCompareValue.$error.required}"
+                     ng-required="ruleLevelThreshold">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h4 class="step-title"> <span class="step-indicator">4</span> Control your alerts</h4>
+    <div class="alert-section">
+      <div class="alert-component-wrapper">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="row bottom-space">
+                    <p class="alert-component-label alert-condition">
+                        Enable alert
+                        <kbn-tooltip text="Selecting this checkbox will activate this alert"
+                            placement="right" append-to-body="1">
+                            <i class="fa fa-question-circle"></i>
+                        </kbn-tooltip>
+                        <input type="checkbox"
+                               name="enableAlert"
+                               class="alert-checkbox"
+                               ng-model="enable_alert">
+                    </p>
+                </div>
+                <div class="row bottom-space">
+                    <p class="alert-component-label alert-condition">
+                        Throttling
+                        <kbn-tooltip text="A time duration selection mechanism through which repeated alerts can be throttled."
+                            placement="right" append-to-body="1">
+                            <i class="fa fa-question-circle"></i>
+                        </kbn-tooltip>,
+                        <input type="checkbox" class="alert-checkbox"
+                               ng-model="enable_throttle">
+                    </p>
+                    <div ng-show="enable_throttle" class="alert-component-label alert-condition">
+                        After triggering the alert, Dont trigger it for
+                    </div>
+                    <div ng-show="enable_throttle" class="alert-condition">
+                        <input type="number"
+                              class="alert-numericals"
+                              name="throttleDuration"
+                              ng-model="throttle_duration"
+                              ng-required="enable_throttle"
+                              ng-class="{error: alertcfgForm.throttleDuration.$error.required}"
+                              min="1">
+                        <p class="error-highlight" ng-show="alertcfgForm.throttleDuration.$error.min">Time values cannot be less than 1</p>
+                        <select class="alert-select"
+                                name="throttleDurationType"
+                                ng-model="throttle_duration_type"
+                                ng-required="enable_throttle"
+                                ng-class="{error: alertcfgForm.throttleDurationType.$error.required}">
+                            <option value="minute">Minute</option>
+                            <option value="hour">Hour</option>
+                            <option value="day">Day</option>
+                            <option value="week">Week</option>
+                            <option value="month">Month</option>
+                        </select>
+                    </div>
+                </div>
+                <p class="alert-component-label"> Enable alerts during
+                    <kbn-tooltip text="Provide the time duration for which the alerts need to be active, You can also decide on which days alerts need to be active by selecting the specific days."
+                            placement="right" append-to-body="1">
+                        <i class="fa fa-question-circle"></i>
+                    </kbn-tooltip>
+                    <input type="checkbox"
+                            ng-model="active_alert_check"
+                            class="alert-checkbox"
+                            name="activeAlertCheck">
+                </p>
+                <div ng-show="active_alert_check">
+                    <div class="row bottom-space">
+                        <div class="col-md-4">
+                            <div class="input-group bootstrap-timepicker
+                            timepicker alert-timepicker">
+                                <input id="alert-timepicker1" type="text"
+                                class="form-control input-small"
+                                ng-model="active_start_time">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                          <span class="alert-component-label">to</span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group bootstrap-timepicker timepicker alert-timepicker">
+                                <input id="alert-timepicker2" type="text"
+                                class="form-control input-small"
+                                ng-model="active_end_time">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row bottom-space">
+                        <span class="alert-days" ng-repeat="day in weekdays">
+                            <input
+                              type="checkbox"
+                              class="alert-checkbox"
+                              name="selectedDays[]"
+                              value="{{day.name}}"
+                              ng-model="day.selected"
+                            > {{day.name}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <p class="alert-component-label">
+                    Report alerts using
+                    <kbn-tooltip text="Use the below channels to get notified when there is an alert"
+                        placement="right" append-to-body="1">
+                        <i class="fa fa-question-circle"></i>
+                    </kbn-tooltip>
+                </p>
+                <div>
+                    <input type="checkbox" class="alert-checkbox"
+                           ng-required="!isAlertActivated()"
+                           ng-model="alertByUI"
+                           name="alertByUI">
+                           <span class="alert-component-label"> UI</span>
+                </div>
+                <div>
+                    <input type="checkbox" class="alert-checkbox"
+                           ng-required="!isAlertActivated()"
+                           ng-model="alertByEmail"
+                           name="alertByEmail">
+                           <span class="alert-component-label"> Email </span>
+                    <span ng-show="alertByEmail" class="alert-email">
+                        <input type="text"
+                               maxlength="250"
+                               multiple-emails
+                               ng-model="alertEmailId"
+                               ng-required="alertByEmail"
+                               name="alertEmailId"
+                               ng-class="{error: alertcfgForm.alertEmailId.$invalid}">
+
+                        <p class="error-highlight" ng-show="alertcfgForm.alertEmailId.$invalid">Please provide valid email address. You can enter multiple email address separated by a comma ','</p>
+                    </span>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

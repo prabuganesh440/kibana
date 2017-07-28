@@ -1,0 +1,29 @@
+<form ng-submit="opts.save()" role="form">
+  <div class="form-group">
+    <label for="dashboardTitle">Save As</label>
+    <input id="dashboardTitle" type="text" ng-model="opts.dashboard.title" class="form-control" placeholder="Dashboard title" input-focus="select">
+  </div>
+  <div class="form-group">
+    <label>
+      <input type="checkbox" ng-model="opts.dashboard.timeRestore" ng-checked="opts.dashboard.timeRestore">
+      Store time with dashboard
+      <kbn-info info="Change the time filter to the currently selected time each time this dashboard is loaded"></kbn-info>
+    </label>
+  </div>
+  <div ng-if="!opts.is_dashboard_using_templates()">
+      <div class="form-group" ng-if="!opts.template_name">
+          <p class="category-save-form">Category</p>
+          <div class="row">
+              <div class="col-md-6">
+                  <select class="form-control" required ng-model="opts.ui.category">
+                      <option ng-repeat="category in opts.categories" value="{{category.id}}">{{category.id}}</option>
+                </select>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div ng-if="opts.user_role_can_modify">
+      <rbac-user-role allowed-roles="opts.allowedRoles"></rbac-user-role>
+  </div>
+  <button type="submit" ng-disabled="!opts.dashboard.title" class="btn btn-ui.primary save-dashboard" aria-label="Save dashboard">Save</button>
+</form>

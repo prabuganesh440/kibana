@@ -1,0 +1,33 @@
+<div class="rbac">
+    <div ng-show="!rbac_options">
+        <h4 class="rbac-header"> User Permissions <a class="rbac-options-dropdown" ng-click="toggle_rbac_options()"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+        </h4>
+    </div>
+    <div ng-show="rbac_options">
+        <h4 class="rbac-header"> User Permissions <a class="rbac-options-dropdown" ng-click="toggle_rbac_options()"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
+        </h4>
+        <table class="rbac-table">
+           <tr ng-repeat="role in allowedRoles">
+            <form name="roleForm" >
+                 <td class="rbac-table-td">
+                    {{role.name}}
+                </td>
+                 <td>
+                      <label class="rbac-label">
+                          <input type="radio" ng-model="role.permission" value="modify"
+                            ng-dblclick="role.permission=''">
+                             Modify
+                      </label>
+                 </td>
+                 <td>
+                      <label class="rbac-label">
+                         <input type="radio" ng-model="role.permission" value="view"
+                         ng-dblclick="role.permission=''">
+                             View
+                      </label>
+                 </td>
+            </form>
+           </tr>
+        </table>
+    </div>
+</div>

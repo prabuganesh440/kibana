@@ -1,0 +1,121 @@
+@import (reference) "~ui/styles/variables";
+@import (reference) "~bootstrap/less/list-group";
+@import (reference) "~ui/styles/list-group-menu";
+
+
+// Vis type icons
+@vistype-shadow:                              #888888;
+@vistype-icon-color:                          #D82765;
+@vistype-icon-border:                         #BDBDBD;
+@vistype-layout-background:                   #E7EBEE;
+@vis-type-text:                               #4b4b4a;
+.vis-wizard {
+  background-color: @vistype-layout-background;
+  height: 91vh;
+  h1 {
+    margin-top: 45px;
+  }
+}
+
+.wizard-vis-type {
+  .list-group-item();
+  .list-group-menu .list-group-menu-item();
+
+  // overrided for tablet and desktop
+  @media (min-width: @screen-md-min) {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  &-heading {
+    flex: 0 0 200px;
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
+
+    .fa {
+      flex: 0 0 auto;
+      margin-right: @padding-base-horizontal;
+      font-size: 1.5em;
+      text-align: center;
+    }
+
+    h4 {
+      flex: 1 0 auto;
+    }
+  }
+
+  &-description {
+    flex: 1 1 auto;
+    color: @wizard-vis-type-description-color;
+  }
+}
+
+.visualize-info {
+  align-self: flex-end;
+
+  &-tab {
+    background-color: @visualize-info-bg;
+    padding: 5px 10px;
+    margin-left: @padding-base-horizontal;
+    border-bottom-left-radius: @border-radius-base;
+    text-align: right;
+    font-weight: bold;
+  }
+
+}
+
+@import "../editor/styles/_editor.less";
+
+// Customize tab to select visualization starts
+
+.vis-wizard {
+  margin:0px;
+  padding:0px;
+  width:100%;
+}
+
+.create-vu-vis {
+        text-align:center;
+        .vienna-vis {
+              margin:0% 0% 0% 10%;
+              padding: 5px 0px;
+              text-align: center;
+
+                .fa-fw {
+                    font-size: 65px;
+                    color: @vistype-icon-color;
+                }
+                h4{
+                    color: @vis-type-text;
+                }
+                .col-md-2 {
+                      padding:5px;
+                      .vis-inner-div {
+                            padding:10px;
+                            border-radius:7px;
+                            border: 1px solid @vistype-icon-border;
+                            box-shadow: 1px 2px 4px @vistype-shadow;
+                            background-color: @white;
+                      }
+                }
+          }  
+}
+
+.vis-button-group {
+    margin-left:91%;
+}
+
+.vis-home-button {
+    padding-left:56%;
+}
+
+// Customize tab to select visualization ends
+
+
+// Body in the step-2 for new visualization
+.vis_step_2_body {
+    padding-left:37px;
+    padding-right:37px;
+    padding-top:10px;
+}

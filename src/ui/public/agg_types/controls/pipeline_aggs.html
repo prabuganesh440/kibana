@@ -1,0 +1,95 @@
+<div class="form-group">
+    <p>
+        <span class="hintbox-label" ng-click="showTypeHint = !showTypeHint">
+            <label>Type</label>
+            <i class="fa fa-info-circle"></i>
+        </span>
+        <div class="hintbox" ng-show="showTypeHint">
+          <p>
+            Indicates the type of pipeline aggregation
+          </p>
+        </div>
+        <select type="text"
+                class="form-control"
+                ng-model="agg.params.pipeline_aggs.type"
+                ng-change="updatePipelineAgg()">
+            <option></option>
+            <option>Moving Average</option>
+        </select>
+    </p>
+    <div ng-show="isSelectedMovingAverage">
+        <p>
+            <span class="hintbox-label" ng-click="showModelHint = !showModelHint">
+                <label>Model</label>
+                <i class="fa fa-info-circle"></i>
+            </span>
+            <div class="hintbox" ng-show="showModelHint">
+              <p>
+                Indicates the type of the moving average weighting model that should be used
+              </p>
+            </div>
+            <select type="text"
+                    class="form-control"
+                    ng-model="agg.params.pipeline_aggs.model"
+                    >
+                <option>simple</option>
+                <option>linear</option>
+                <option>ewma</option>
+                <option>holt</option>
+                <option>holt's winter</option>
+            </select>
+        </p>
+
+        <p>
+            <span class="hintbox-label" ng-click="showGapHint = !showGapHint">
+                <label>Gap Policy</label>
+                <i class="fa fa-info-circle"></i>
+            </span>
+            <div class="hintbox" ng-show="showGapHint">
+              <p>
+                Determines what should happen when a gap in the data is encountered.
+              </p>
+            </div>
+            <select type="text"
+                    class="form-control"
+                    ng-model="agg.params.pipeline_aggs.gap_policy">
+                <option>insert zero</option>
+                <option>skip</option>
+            </select>
+        </p>
+
+        <p>
+            <span class="hintbox-label" ng-click="showWindowHint = !showWindowHint">
+                <label>Window</label>
+                <i class="fa fa-info-circle"></i>
+            </span>
+            <div class="hintbox" ng-show="showWindowHint">
+              <p>
+                The size of window to "slide" across the histogram.
+              </p>
+            </div>
+            <select type="text"
+                    class="form-control"
+                    ng-model="agg.params.pipeline_aggs.window">
+                <option>5</option>
+                <option>1-100</option>
+            </select>
+        </p>
+
+        <p>
+            <span class="hintbox-label" ng-click="showMinimizeHint = !showMinimizeHint">
+                <label>Minimize</label>
+                <i class="fa fa-info-circle"></i>
+            </span>
+            <span class="moving-average-minimize">
+                <input type="checkbox"
+                       ng-model="agg.params.pipeline_aggs.minimize">
+            </span>
+            <div class="hintbox" ng-show="showMinimizeHint">
+              <p>
+                If the model should be algorithmically minimized.
+              </p>
+            </div>
+        </p>
+    </div>
+</div>

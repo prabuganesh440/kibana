@@ -1,0 +1,13 @@
+<%
+var attributes = '';
+if (timefield) {
+  attributes='class="discover-table-timefield zero-margin" width="1%"';
+} else if (sourcefield) {
+  attributes='class="discover-table-sourcefield zero-margin"';
+} else {
+  attributes='class="discover-table-datafield zero-margin"';
+}
+%>
+<td> <h6 <%= attributes %>>
+  <%= formatted %>
+</h6></td>

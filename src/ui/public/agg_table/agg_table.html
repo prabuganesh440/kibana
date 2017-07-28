@@ -1,0 +1,26 @@
+<paginated-table
+  ng-if="rows.length"
+  rows="rows"
+  columns="formattedColumns"
+  is-matrix="isMatrix"
+  per-page="perPage"
+  color-schema="colorSchema"
+  interval="interval"
+  custom-interval="customInterval"
+  custom-interval-type="customIntervalType"
+  print-report="printReport"
+>
+
+  <div class="agg-table-controls">
+
+    <!-- <small>Export:</small>&nbsp;&nbsp; -->
+    <!-- <a class="small" ng-click="aggTable.exportAsCsv(false)">
+      Raw <i aria-hidden="true" class="fa fa-download"></i>
+    </a>&nbsp;&nbsp;&nbsp; -->
+    <a ng-if="!printReport" class="small" ng-click="aggTable.exportAsCsv(true)">
+      Export <i aria-hidden="true" class="fa fa-download"></i>
+    </a>
+
+    <paginate-controls></paginate-controls>
+</div>
+</paginated-table>

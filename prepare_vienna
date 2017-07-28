@@ -1,0 +1,15 @@
+#!/bin/sh
+# Copy autoprefixer-loader package json - Used for solving npm start problem
+cp nodeModuleUpdate/autoprefixer-loader-package.json node_modules/autoprefixer-loader/package.json
+rm -rf node_modules/autoprefixer-loader/node_modules 
+cd node_modules/autoprefixer-loader/
+npm install 
+cd -
+
+# Copy print.less to bootstrap
+cp nodeModuleUpdate/print.less node_modules/bootstrap/less/print.less
+
+# Install timelion
+if [ ! -d 'installedPlugins/timelion/' ]; then
+bin/kibana plugin --install elastic/timelion
+fi

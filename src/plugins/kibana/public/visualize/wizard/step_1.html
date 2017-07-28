@@ -1,0 +1,27 @@
+<div class="vienna-dashmenu-wrapper">
+  <navbar ng-if="chrome.getVisible()" class="vienna-dashmenu">
+    <div class="report-name">
+          <span class="name">Step 1: Choose your visualization type</span>
+    </div>
+    <div class="button-group vis-home-button">
+      <kbn-tooltip text="List of Visualizations" placement="bottom" append-to-body="1">
+          <div class="vienna-home">
+              <a href="#/visualize/Home" aria-label="List">
+                  <i aria-hidden="true" class="fa fa-list"></i>
+              </a>
+           </div>
+       </kbn-tooltip>
+   </div>
+  </navbar>
+</div>
+
+<div class="create-vu-vis">
+        <div ng-repeat="items in primary_visTypes" class="row vienna-vis">
+            <a ng-repeat="item in items" class="col-md-2" ng-href="{{ visTypeUrl(item) }}">
+                <div class="vis-inner-div">
+                  <i aria-hidden="true" class="fa fa-fw" ng-class="item.icon"></i>
+                  <h4>{{item.title}}</h4>
+                </div>
+            </a>
+        </div>      
+</div>

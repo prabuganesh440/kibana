@@ -1,0 +1,24 @@
+<div ng-controller="UVMapVisParamsController">
+<div class="form-group">
+    <div class="uvmap-vis-editor-expression">
+      <div>
+        <label>Unified Visibility Metrics
+          <kbn-tooltip text="Add expressions used in Timelion to populate Metrics in the Unified Visibility Map" placement="bottom" append-to-body="1">
+               <span> <i class="fa fa-question-circle" aria-hidden="true"></i> </span>
+          </kbn-tooltip></label>
+      </div>
+      <textarea
+        ng-model="vis.params.expression" class="form-control" rows="5"></textarea>
+    </div>
+    <div class="uvmap-vis-editor-connection">
+      <div class="uvmap-vis-connection-header">
+          <label>Unified Visibility Connections
+          <kbn-tooltip text="Provides connection information using grammar. Use 'isconnectedto' to connect two nodes. Also use '<node-name> name <node-name> type <node-type> x:<location-on-x-axis> y:<location-on-y-axis> [dashboard:<dasboard-name>]' to provide attributes for a node. For example: '10.10.10.1 isconnectedto 10.10.10.2\n10.10.10.1 name router-1 type Router x:-200 y:-100\n10.10.10.1 name router-2 type Router x:-100 y:-100" placement="bottom" append-to-body="1">
+               <span> <i class="fa fa-question-circle" aria-hidden="true"></i> </span>
+          </kbn-tooltip></label>
+      </div>
+      <textarea
+        ng-model="vis.params.connection" class="form-control" rows="5"></textarea>
+    </div>
+</div>
+</div>

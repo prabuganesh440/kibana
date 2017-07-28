@@ -1,0 +1,200 @@
+@import "~ui/styles/variables/colors.less";
+
+@brand-primary:                               @gray14;
+@brand-info:                                  #6482e5;
+
+@body-bg:                                     @gray3;
+
+@button-color:								  #D82765; // color for submit buttons in vienna
+@text-color:                                  #101420; // color for text in headings, panels, navbar.
+@title-background:                            #BAC5CE; // background colors for panels headers etc.
+@current-selected-bg:                         #BAC5CE; // background when a tab or dropdown option is
+                                                       // hovered,focused or active.
+@link-color:                                  #080820; // color for links in dashlets and other places.
+@link-hover-color:                            lighten(@link-color, 10%);
+
+@btn-default-color:                           @white;
+@btn-default-bg:                              @title-background;
+@btn-default-border:                          @btn-default-bg;
+
+@btn-primary-color:                           @white;
+@btn-primary-bg:                              @gray7;
+@btn-primary-border:                          @btn-primary-bg;
+
+@btn-success-bg:                              @brand-success;
+@btn-danger-bg:                               @brand-danger;
+
+@input-bg:                                    @title-background;
+@input-bg-disabled:                           @title-background;
+
+@input-color:                                 @text-color;
+@input-border:                                @title-background;
+
+@well-bg:                                     @gray4;
+
+@action-add:                                  desaturate(@btn-success-bg, 30%);
+@action-remove:                               desaturate(@btn-danger-bg, 30%);
+
+
+@table-border-color:                          #5c5c5c;
+@table-cell-hover-bg:                         transparent;
+@table-cell-hover-hover-bg:                   @title-background;
+@table-row-hover-bg:                          lighten(@title-background, 4%);
+@table-nested-bg:                             transparent;
+
+@table-sort-color:                            #434040;
+@table-sort-asc-color:                        @gray11;
+@table-sort-desc-color:                       @gray11;
+
+@nav-link-hover-bg:                           @title-background;
+@nav-tabs-active-link-hover-bg:               @current-selected-bg;
+
+@nav-tabs-border-color:                       @gray6;
+@nav-tabs-link-hover-border-color:            @gray7;
+@nav-tabs-active-link-hover-border-color:     @gray7;
+
+@nav-tabs-active-link-hover-color:            #fff;
+
+@paginate-page-link-active-color:             @gray9;
+
+
+@dashboard-bg:                                #e7ebee; // background over which all the dashlets are 														// placed.
+@report-bg:                                   #e7ebee; // background over which all the dashlets are 														// placed.
+@panel-bg:                                    @white; // background for each dashlet.
+@panel-inner-border:                          red;
+
+@panel-default-text:                          #2A2A2C;
+@panel-default-border:                        @white; // border color of dashlet.
+@panel-default-heading-bg:                    @white; // background for heading for dashlet panels.
+@dashlets-shadow:                             #888888; // shadow color for dashlets
+
+@dashboard-panel-bg:                          @panel-bg;
+@dashboard-panel-color:                       #5E5E5E; // text color inside dashlets
+@dashboard-panel-heading-link-color:          @text-color;
+@dashboard-panel-heading-link-hover-color:    @text-color;
+@dashboard-panel-load-error-color:            @btn-danger-bg;
+
+@report-panel-bg:                          @panel-bg;
+@report-panel-color:                       #5E5E5E; // text color inside dashlets
+@report-panel-heading-link-color:          @text-color;
+@report-panel-heading-link-hover-color:    @text-color;
+@report-panel-load-error-color:            @btn-danger-bg;
+
+@collapser-bg:                                @panel-bg;
+@collapser-border:                            @white; // border color of inner border for collapse in 
+                                                      // dashlet
+@collapser-color:                             @gray8;
+@collapser-hover-bg:                          @gray6;
+@collapser-hover-color:                       @gray3;
+
+@visualize-show-spy-border:                   @collapser-border;
+@visualize-show-spy-bg:                       @collapser-bg;
+@visualize-show-spy-color:                    @collapser-color;
+@visualize-show-spy-hover-bg:                 @collapser-hover-bg;
+@visualize-show-spy-hover-color:              @collapser-hover-color;
+
+@svg-axis-color:                              #656464; // Yaxis color
+@svg-x-axis-color:                            #656464; // Xaxis color
+@svg-tick-text-color:                         #000; // X,Y axis text colors
+@svg-brush-color:                             @white;
+@svg-endzone-bg:                              @white;
+@vis-axis-title-color:                        #656464;
+@vis-chart-title-color:                       @gray10;
+
+@tilemap-border:                              @gray13;
+@tilemap-legend-base-bg:                      @gray3;
+@tilemap-legend-bg:                           fade(@tilemap-legend-base-bg, 100%);
+@tilemap-color:                               @gray12;
+@tilemap-legend-i-border:                     @gray9;
+@tilemap-legend-i-bg:                         @gray10;
+@tilemap-info-base-bg:                        @white;
+@tilemap-info-bg:                             fade(@tilemap-info-base-bg, 92%);
+@tilemap-info-header-color:                   @gray4;
+@tilemap-leaflet-control-bg:                  @white;
+@tilemap-leaflet-control-outline:             @black;
+@tilemap-leaflet-control-color:               @black;
+@tilemap-leaflet-control-draw-action-bg:      @gray11;
+@tilemap-leaflet-container-bg:                @body-bg;
+@tilemap-leaflet-popup-border:                @gray9;
+@tilemap-leaflet-footer-bg:                   fade(@gray3, 80%);
+@tilemap-leaflet-footer-color:                @gray12;
+@tilemap-filter:                              invert(1) brightness(1.75) grayscale(1) contrast(1);
+
+@tooltip-bg:                                  fadeout(@gray4, 7%);
+@tooltip-color:                               @gray14;
+
+@filter-bar-confirm-bg:                       @title-background;
+@filter-bar-confirm-filter-color:             @title-background;
+@filter-bar-confirm-border:                   @title-background;
+@filter-bar-confirm-filter-bg:                @gray12;
+@filter-bar-bar-bg:                           @title-background;
+@filter-bar-bar-border:                       @title-background;
+@filter-bar-bar-condensed-bg:                 darken(@filter-bar-bar-bg, 5%);
+@filter-bar-bar-filter-bg:                    @action-add;
+@filter-bar-bar-filter-color:                 @white;
+@filter-bar-bar-filter-negate-bg:             @action-remove;
+
+@legend-item-color:                           @text-color;
+
+@config-border:                               #666667;
+@config-bg:                                   @white; // background of dropdown for load dashboard.
+@config-close-bg:                             @white; // collapse of dropdown got from load dashboard
+@config-saved-object-finder-options-bg:       @white;
+
+@saved-object-finder-link-color:              @text-color;
+@saved-object-finder-icon-color:              darken(@saved-object-finder-link-color, 10%);
+
+@list-group-bg:                               @white; // background for each dashboard in load dashboard
+                                                      // dropdown
+@list-group-border:                           @navbar-default-bg;
+@list-group-hover-bg:                         @navbar-default-bg;
+@list-group-link-color:                       @gray5;
+@list-group-link-hover-color:                 @list-group-link-color;
+@list-group-link-heading-color:               @gray3;
+@list-group-menu-item-color:                  @text-color;
+@list-group-menu-item-select-color:           @link-color;
+@list-group-menu-item-active-bg:              @navbar-default-bg;
+@list-group-menu-item-hover-bg:               @navbar-default-bg;
+
+@component-active-color:                      @gray5;
+@component-active-bg:                         @gray9;
+
+@navbar-default-color:                        #0A0A48; // text color in navbar section
+@navbar-default-bg:                           #e7ebee; // change navbar background in view section
+@navbar-default-border:                       @title-background;
+
+@spinner-bg:                                  @white;
+
+@sidebar-bg:                                  @btn-default-bg;
+@sidebar-hover-bg:                            darken(@btn-default-bg, 5%);
+@sidebar-hover-color:                         @text-color;
+
+
+//css for vienna tabs - Main navigation bar
+
+@text-color1:                                 #4b4a4a;
+@text-color2:                                 #292F4F;
+@text-color3:                                 #57585C;
+
+@border-color1:                               #BDBDBD;
+@border-color2:                               #e0e0e0;
+
+@background-color1:                           #E0E0E0;
+@background-color2:                           #F8F8F8;
+@background-color3:                           #e7ebee;
+
+// vienna tabs for navigation
+@vienna-header-text:                          @text-color1; //color for vienna navbar text
+@tabs-text-color:                             @text-color2; // text color for tab headers
+@tabs-border-color:                           @border-color1; //border color for vienna nav tabs
+@time-picker-background:                      @background-color1;
+@vienna-topbar-background:                    @background-color2;
+
+// visualization data tables
+@data-tables-border:                          @border-color2;
+@data-tables-even-row-background:             #F0F4F6;
+@data-tables-header-background:               #C4D3DC;
+@data-tables-outline:                         #A7A4A4;
+
+//search-button with searchbar
+@search-button-color:                         #95ACBD;

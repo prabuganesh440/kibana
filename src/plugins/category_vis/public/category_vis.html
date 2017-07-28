@@ -1,0 +1,30 @@
+<div ng-controller="KbnCategoryVisController" class="category-vis">
+    <div class="container" ng-style="getCategoryStyle(vis.params.theme)">
+        <div class="row category-header">
+            <div class="col-sm-4"> <img ng-src="{{category_image}}" class="category-image"></div>
+            <div class="col-sm-8"> <p class="category-title">{{vis.params.name}}</p> </div>
+        </div>
+        <div ng-if="!show_dashboards">
+            <div class="row">
+                <div class="col-sm-12">
+                    <p class="category-description">{{vis.params.description}}</p>
+                </div>
+            </div>
+        </div>
+        <div ng-if="show_dashboards">
+            <ul class="category-dashboard-ul">
+                <li ng-repeat="dash in dashboards" class="category-dashboard">
+                    <a ng-href="{{getDashboardHref(dash)}}"
+                        class="category-dashboard-li">{{dash}} <i class="fa fa-link category-dashboard-link" aria-hidden="true"></i> </a></li>
+            </ul>
+        </div>
+        <div class="row">
+                <div ng-click="toggleDisplayDashboards()" ng-if="!show_dashboards" class="category-toggle">
+                    <i class="fa fa-angle-down fa-2x" aria-hidden="true"></i>
+                </div>
+                <div ng-click="toggleDisplayDashboards()" ng-if="show_dashboards" class="category-toggle">
+                    <i class="fa fa-angle-up fa-2x" aria-hidden="true"></i>
+                </div>
+         </div>
+    </div>
+</div>

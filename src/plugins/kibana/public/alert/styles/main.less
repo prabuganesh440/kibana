@@ -1,0 +1,281 @@
+@import (reference) "~ui/styles/variables";
+@import (reference) "~ui/styles/mixins";
+
+.tab-alert{
+  background-color: #fff;
+}
+
+.start-screen {
+  margin: 20px;
+  background-color: @dashboard-bg;
+  padding: 20px;
+}
+
+.alert-panel-picker > li.list-group-item {
+  border-top: 0px;
+}
+
+.alert-load {
+  margin: 10px;
+}
+
+/* custom css for alerts section  starts */
+
+//styling for alert sections
+.alert-section {
+  border:1px solid #bac5ce;
+  background-color: #f7f9fb;
+  padding: 5px 8px;
+  -moz-box-shadow:    inset 0 0 10px #bac5ce;
+  -webkit-box-shadow: inset 0 0 10px #bac5ce;
+  box-shadow: inset 0 0 10px #bac5ce;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.alert-component-wrapper {
+  padding:8px 30px;
+}
+
+.bottom-space {
+  margin-bottom: 4px;
+  margin-left: 0px !important;
+}
+
+.next-line {
+  clear: both;
+}
+
+// To set the alert condition in a single line
+.alert-condition{
+  display: block;
+  float: left;
+  margin-right: 10px;
+}
+
+// for the section header icon
+.step-indicator {
+    background-color: @text-color;
+    border-radius: 50%;
+    padding: 6px 12px;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+// for the section header text
+.step-title {
+  margin:30px 0px 15px 0px;
+}
+
+//styling the alert name
+.alert-heading {
+  width: 65%;
+  color: @text-color;
+  font-size: 18px;
+  padding-top: 4px;
+}
+
+//Container for alert configuration form
+.alert-body-container {
+  height:100vh;
+  background-color: #fff;
+  padding-top:10px !important;
+}
+
+//styling the labels of alert form fields.
+.alert-component-label {
+  color:#080820;
+  padding:0px !important;
+  font-size: 13px;
+}
+
+//styling the selectbox for time selection
+.alert-duration {
+  display: block;
+  float: left;
+  width: 35% !important;
+  margin-right:10px;
+}
+
+//styling for group by field
+.groupby-option {
+  width: 150px !important;
+  margin-right: 10px;
+}
+
+//styling for all select boxes in alerts
+.alert-select {
+  width:150px;
+  height:22px !important;
+}
+
+//styling for all check boxes in alerts
+.alert-checkbox {
+  width: 13px !important;
+  height: 13px !important;
+  vertical-align: middle;
+  margin:0px 0px 0px 6px !important;
+}
+
+.rule-level-threshold-wrapper {
+  margin-top:6px;
+}
+
+//styling for rule-level-threshold checkbox
+.rule-level-checkbox {
+  width: 13px !important;
+  height: 13px !important;
+  vertical-align: middle;
+  margin:0px 0px 0px 0px !important;
+}
+
+.alert-days {
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right:8px !important;
+}
+
+.alert-body-container .col-md-2 {
+  padding-right:0px;
+}
+
+//styling the numerical fields in alert cfg form
+.alert-numericals {
+  width: 60px !important;
+  padding-left:7px;
+  border: 1px solid #A9A9A9;
+}
+
+//styling the filter box
+.alert-filter {
+  width:60%;
+  height: 24px;
+  padding-left: 5px;}
+
+//styling the email field
+.alert-email {
+  padding-top: 10px;
+   input {
+      width:80% !important;
+      padding-left:2px;
+      border: 1px solid #A9A9A9;
+   }
+}
+
+//styling the sub group headers in alert cfg
+.alert-legend {
+    display: block;
+    padding: 3px 10px;
+    font-size: 17px;
+    line-height: inherit;
+    background-color: #4d515b;
+    color:#fff;
+    border-bottom: 1px solid transparent;
+    .fa-question-circle {
+        color: #fff;
+        font-size: 15px;
+      }
+}
+
+.alert-fieldset {
+    margin: 5px 15px;
+    padding: 5px 15px;
+    border-radius: 4px;
+}
+
+.alert-fieldset-container {
+    margin-top:20px;
+    border: 1px solid #4d515b;
+    border-radius:3px;
+}
+
+.save-alert {
+  background-color: #D82765;
+  color: #fff;
+}
+
+//To highlight required fields components in red color
+.error { 
+  border-color: #c80000 !important;
+    text-align: left;
+}
+
+// To show error messages in red color
+.error-highlight {
+  color: #c80000 !important;
+  text-align: left;
+}
+
+.alert-description {
+  padding-left:6px;
+}
+
+.fa-question-circle {
+  color: #4d515b;
+}
+
+.alert-timepicker{
+  width: 160px;
+}
+
+// add and remove buttons for groupby field and rules
+.crud_buttons {
+  background-color: #F7F9FB;
+  padding:0px;
+  &:focus,
+  &:hover,
+  &.active {
+      color:@text-color;
+  }
+}
+
+// button for adding new rule
+.add-new-rule-button {
+  background-color: #fff;
+  color:#d80364;
+  font-size: 14px;
+  padding:0px;
+  &:focus,
+  &:hover,
+  &.active {
+      color:#d80364;
+  }
+}
+
+// add new group by field
+.add-new-field {
+  background-color: #f7f9fb;
+  color:#d80364;
+  font-size: 13px;
+  padding:0px;
+  &:focus,
+  &:hover,
+  &.active {
+      color:#d80364;
+  }
+}
+
+.alert-body-container .tooltip-inner {
+    min-width: 350px;
+    max-width: 555px !important;
+    background: black;
+    opacity:1;
+}
+
+.rule-number-wrapper {
+  padding: 0px;
+  .rule-number {
+    background: #444444;
+    display: inline;
+    color: #fff;
+    padding: 1px 4px;
+    font-size: 12px;
+    border-radius: 5px;
+    margin-bottom: 2px !important;
+  } 
+}
+
+.rule-level-label {
+  margin-right: 7px;
+  vertical-align: middle;
+}

@@ -1,0 +1,11 @@
+<form ng-submit="opts.save()" role="form">
+  <div class="form-group">
+    <label for="alertTitle">Save As</label>
+    <input id="alertTitle" type="text" ng-model="opts.alertcfg.title"
+    class="form-control" placeholder="Alert title" input-focus="select">
+</div>
+  <div ng-if="opts.user_role_can_modify">
+      <rbac-user-role allowed-roles="opts.allowedRoles"></rbac-user-role>
+  </div>
+  <button type="submit" ng-disabled="!opts.alertcfg.title" class="btn btn-ui.primary save-alert" aria-label="Save alert">Save</button>
+</form>

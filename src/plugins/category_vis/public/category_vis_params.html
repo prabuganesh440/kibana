@@ -1,0 +1,22 @@
+<div class="category-vis-options form-group">
+  <div>
+    <label>Category</label>
+  </div>
+  <span class="category-param-label">Name</span>
+  <input type="text" name="categoryName" ng-model="vis.params.name">
+  <span class="category-param-label">Description</span>
+  <input type="text" name="categoryDescription" ng-model="vis.params.description">
+
+  <span class="category-param-label">Icon</span>
+  <select class="alert-select" ng-model="vis.params.image" name="categoryImage" required>
+      <option ng-repeat="option in vis.params.images" value="{{option}}">{{option}}</option>
+ </select>
+
+  <span class="category-param-label">Color Theme</span>
+  <select class="alert-select" ng-model="vis.params.theme" name="categoryTheme" required>
+      <option ng-repeat="option in vis.params.themes" value="{{option}}">{{option}}</option>
+  </select>
+
+  <span class="category-param-label">Dashboards</span>
+  <textarea readonly type="text" rows="6" cols="97" name="categoryDashboards" ng-model="vis.params.dashboards"> </textarea>
+</div>

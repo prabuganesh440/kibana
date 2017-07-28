@@ -1,0 +1,92 @@
+<div alert-app class="app-container alert-container">
+
+    <div class="vienna-dashmenu-wrapper">
+      <navbar ng-show="chrome.getVisible()" class="vienna-dashmenu">
+        <div class="alert-name alert-heading" ng-if="!list_alert">
+                 <span class="name" ng-if="alertcfg.id" ng-bind="::alertcfg.title" tooltip="{{::alertcfg.title}}"></span>
+                 <span class="name" ng-if="!alertcfg.id">Alert Configuration</span>
+        </div>
+        <div class="alert-name alert-heading" ng-if="list_alert">
+             <span class="name">List of Alerts</span>
+        </div>
+        <form name="queryInput"
+          class="fill inline-form vienna-search"
+          ng-submit="filterResults()"
+          role="form">
+
+          <div class="typeahead" kbn-typeahead="alert">
+            <div class="input-group"
+              ng-class="queryInput.$invalid ? 'has-error' : ''">
+              <!-- ng-show is used instead of ng-if to avoid kbn-typeahead-input errors, Since ng-show only hides the input, This does not gives error -->
+              <input ng-show="show_searchbar"
+                type="text"
+                placeholder="Filter..."
+                aria-label="Filter input"
+                class="form-control"
+                ng-model="state.query"
+                input-focus
+                kbn-typeahead-input
+                parse-query>
+              <button type="submit"
+                  class="btn btn-default search-submit-button"
+                  ng-if="show_searchbar"
+                  ng-disabled="queryInput.$invalid"
+                  aria-label="Filter Reports">
+                <span aria-hidden="true" class="fa fa-search"></span>
+              </button>
+            </div>
+            <!-- <kbn-typeahead-items></kbn-typeahead-items> -->
+          </div>
+        </form>
+        <div class="button-group" role="toolbar">
+            <kbn-tooltip text="List of Alerts" placement="bottom" append-to-body="1">
+               <div class="vienna-home">
+                  <a href="#/alert/Home" aria-label="List">
+                     <i aria-hidden="true" class="fa fa-list"></i>
+                  </a>
+                </div>
+            </kbn-tooltip>
+            <kbn-tooltip text="Show Toolbar" placement="bottom" append-to-body="1">
+                <button ng-click="toggleToolbar()" class="show-toolbar" ng-if="!show_toolbar" aria-label="Toolbar"><i aria-hidden="true" class="fa fa-angle-left"></i></button>
+            </kbn-tooltip>
+            <div ng-show="show_toolbar">
+                <kbn-tooltip ng-show="creation_allowed" text="New Alert" placement="bottom" append-to-body="1">
+                    <button ng-click="newAlert()" aria-label="New Alert"><i aria-hidden="true" class="fa fa-file-new-o"></i></button>
+                </kbn-tooltip>
+                <kbn-tooltip ng-show="creation_allowed" text="Save Alert" placement="bottom" append-to-body="1">
+                    <button ng-disabled="non_edit_state || alertcfgForm.$invalid"
+                        aria-label="Save Alert"
+                        aria-haspopup="true"
+                        aria-expanded="{{ configTemplate.is('save') }}"
+                        ng-class="{active: configTemplate.is('save')}"
+                        ng-click="configTemplate.toggle('save');">
+                        <i aria-hidden="true" class="fa fa-save"></i>
+                    </button>
+                </kbn-tooltip>
+                <!-- Load Saved alert, Share alert is not required -->
+                <kbn-tooltip text="Load Saved Alert" placement="bottom" append-to-body="1">
+                    <button style="border-right:1px solid #101420;border-radius:0px;"
+                      aria-label="Load Saved Alert"
+                      aria-haspopup="true"
+                      aria-expanded="{{ configTemplate.is('load') }}"
+                      ng-class="{active: configTemplate.is('load')}"
+                      ng-click="configTemplate.toggle('load');">
+                      <i aria-hidden="true" class="fa fa-folder-open-o"></i>
+                    </button>
+                </kbn-tooltip>
+                <kbn-tooltip text="Hide Toolbar" placement="bottom" append-to-body="1">
+                <button ng-click="toggleToolbar()" ng-if="show_toolbar" aria-label="Toolbar"><i aria-hidden="true" class="fa fa-angle-right"></i></button>
+             </kbn-tooltip>
+            </div>
+        </div>
+      </navbar>
+    </div>
+
+    <config config-template="configTemplate" config-object="opts"></config>
+
+    <div ng-if="list_alert" class="saved-object-lister">
+        <saved-object-finder objects-per-page=10 type="alerts"></saved-object-finder>
+    </div>
+
+    <alert-details></alert-details>
+</div>

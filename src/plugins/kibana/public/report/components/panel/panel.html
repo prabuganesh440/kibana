@@ -1,0 +1,51 @@
+<div ng-class="print_report ? 'panel panel-default-print' : 'panel panel-default'" ng-switch on="panel.type" ng-if="savedObj || error">
+    <div class="panel-heading" style="padding: 8.1111px;color:#01b5d5 !important;font-weight: bold;">
+    <span class="panel-title" ng-if="!print_report">
+      <i
+        class="fa"
+        ng-class="savedObj.vis.type.icon"
+        aria-label="{{savedObj.vis.type.title}} Icon"
+        title="{{savedObj.vis.type.title}}">
+      </i>
+      {{savedObj.title}}
+    </span>
+    <span class="panel-title" ng-if="print_report && savedObj.vis.type.title!='Markdown widget'">
+        {{panel_id}} {{savedObj.title}}
+    </span>
+    <div class="clearfix" ng-if="!print_report"></div>
+  </div>
+
+  <div ng-if="error" class="load-error">
+    <i aria-hidden="true" class="fa fa-exclamation-triangle"></i>
+    <span ng-bind="error"></span>
+  </div>
+
+  <!-- We have added the ng-class here to set the 
+  css display as table for 'matrix' or 'data table' and display
+  as flex for graphs and other visualizations while printing 
+  a report-->
+  <visualize ng-switch-when="visualization"
+    vis="savedObj.vis"
+    search-source="savedObj.searchSource"
+    show-spy-panel="chrome.getVisible()"
+    element="$el"
+    ui-state="uiState"
+    print-report="printing_report"
+    ng-style="{'height': vis_type=='table'|| vis_type=='matrix' ? '100%' : '575px',width:'1150px' }"
+    ng-class="{'visualize-table': (vis_type=='table'|| vis_type=='matrix') && print_report, 'visualize-non-table': !((vis_type=='table'|| vis_type=='matrix') && print_report) }"
+    class="panel-content">
+  </visualize>
+
+  <doc-table ng-switch-when="search"
+    search-source="savedObj.searchSource"
+    sorting="panel.sort"
+    columns="panel.columns"
+    print-report="printing_report"
+    class="panel-content"
+    filter="filter">
+</doc-table>
+
+<p class="display-notes">
+    {{savedObj.vis.params.notes}}
+</p>
+</div>

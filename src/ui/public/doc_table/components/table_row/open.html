@@ -1,0 +1,8 @@
+<td >
+  <i ng-if="!printReport" confirm-click="deleteRow()" confirmation="Are you sure you want to clear this event?" class="fa fa-trash" style="padding-right:10px"> </i>
+  <i ng-if="!printReport" ng-click="editRow()" class="fa fa-pencil-square-o" style="padding-right:10px"> </i>
+  <i ng-if="!printReport" ng-click="toggleRow()"
+    class="fa discover-table-open-icon"
+    ng-class="{ 'fa-caret-down': open, 'fa-caret-right': !open }">
+  </i>
+</td>

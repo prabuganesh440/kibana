@@ -1,0 +1,456 @@
+@import (reference) "~ui/styles/variables";
+@import (reference) "~ui/styles/mixins";
+
+.tab-report {
+  background-color: @report-bg;
+}
+
+.start-screen {
+  margin: 20px;
+  background-color: @report-bg;
+  padding: 20px;
+}
+
+.gridster {
+  list-style-type: none;
+  display: block;
+  background-color: @report-bg;
+  margin: 0;
+  padding: 0;
+
+  .gs-resize-handle {
+    background-position: 50% 50% !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    padding: 4px;
+    height: 25px;
+    width: 25px;
+  }
+
+  i.remove {
+    cursor: pointer;
+  }
+
+
+.panel-heading {
+    color: #2e3458 !important;
+}
+
+  report-panel {
+    display: block;
+    height: 100%;
+    background: @report-panel-bg;
+    color: @report-panel-color;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+
+    .panel {
+      margin: 0;
+      // maintain the 100% height of the panel
+      height: 100%;
+
+      // flex layout allows us to define the visualize element as "fill available space"
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+
+      .panel-heading {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        display: flex;
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+        background-color: @white !important;
+        border-color: @white !important;
+
+        div.btn-group {
+          white-space: nowrap;
+          flex: 0 0 auto;
+        }
+
+        .panel-title {          
+          font-size: 16px;
+          font-weight: bold;
+
+          // flexbox fix for IE10
+          // http://stackoverflow.com/questions/22008135/internet-explorer-10-does-not-apply-flexbox-on-inline-elements
+          display: inline-block;
+
+          .ellipsis();
+          flex: 1 1 auto;
+
+          i {
+            opacity: 0.3;
+            font-size: 1.2em;
+            margin-right: 4px;
+          }
+        }
+
+        a {
+          color: @report-panel-heading-link-color;
+          border: none;
+          background: none;
+          padding: 0px 3px;
+          &:hover {
+            color: @report-panel-heading-link-hover-color;
+          }
+        }
+      }
+
+      .load-error {
+        text-align: center;
+        font-size: 1em;
+        display: flex;
+        flex: 1 0 auto;
+        justify-content: center;
+        flex-direction: column;
+
+        .fa-exclamation-triangle {
+          font-size: 2em;
+          color: @report-panel-load-error-color;
+        }
+      }
+
+      .panel-content {
+        display: flex;
+        flex: 1 1 100%;
+        height: auto;
+      }
+    }
+  }
+}
+
+
+.report-panel-picker > li.list-group-item {
+  border-top: 0px;
+}
+
+.report-load {
+  margin: 10px;
+}
+
+/* css for repeated page break(dotted lines) */
+
+.page-break-div {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    height: 720px;
+    border-bottom: 2px dotted grey !important;
+    display: block;
+    width: 100%;
+    background-color: #e7ebee;
+}
+
+.page-break-text-div {
+   position:absolute;
+   bottom: 0;
+   left: 600px;
+}
+
+/* css for repeated page break(dotted lines) ends*/
+
+// css for report name 
+.report-name {
+  font-size: 15px;
+  padding-top: 4px;
+  color: @text-color;
+  width:40%;
+}
+
+//css for save components in save report page
+
+.report-save-components {
+  width: 80%;
+  height: 24px;
+  padding-left:6px;
+}
+
+.save-report-form .row {
+   margin-top: 15px;
+}
+
+.save-report {
+  background-color: #D82765;
+  color: #fff;
+}
+
+// css for first page of the reports
+
+.report-main-page {
+  padding: 5px;
+
+}
+
+// css for adding numbering to the table-of-contents
+ol {
+    counter-reset: item;
+    color:#2e3458 !important;
+    font-weight: bold;
+}
+
+ol > li {
+      counter-increment: item;
+}
+
+ol ol > li {
+      display: block;
+}
+
+ol ol > li:before {
+     content: counters(item, ".") ". ";
+     margin-left: -20px;
+}
+
+.report-div {
+}
+
+.report-company {
+    color:#01b5d5 !important;
+    margin:1%;
+    border-bottom:1px solid;
+}
+
+.report-company-name {
+    text-align: center;
+    margin-top: 10px;
+    color:#01b5d5 !important;
+}
+
+.report-name-header {
+    text-align: center;
+    margin-top: 40px;
+    color:#2e3458 !important;
+}
+
+.report-time {
+    text-align: center;
+    margin-top:10px;
+    color:#2e3458 !important;
+}
+
+.report-prepared-by {
+    text-align: center; 
+    margin-top: 20px;
+    color:#2e3458 !important;
+}
+
+.report-date {
+    text-align: center;
+    color:#2e3458 !important;
+}
+
+.report-content {
+    text-align: center;
+    margin-top: 20px;
+    color:#01b5d5 !important;
+    padding-top:12px;
+    padding-left:5px;
+}
+
+.report-main-page ol {    
+    list-style-type: decimal;
+    li {
+        margin: 15px;
+        font-size: 16px;
+    }    
+}
+
+.exec-summary-header {
+    text-align: center;
+    margin-top: 20px;
+    color:#01b5d5 !important;
+    padding-top:12px;
+    padding-left:5px;
+}
+
+.exec-summary-content {
+    margin: 20px;
+    font-size: 15px;
+    white-space: pre-wrap;
+}
+
+.excutive-summary {
+    padding-left: 3px;
+}
+
+.page-break {
+  page-break-after:always;
+}
+
+.display-notes {
+  text-align: center;
+  padding: 20px;
+}
+
+//styling the labels of report form fields.
+.report-component-label {
+  color:#080820;
+  padding:0px !important;
+  font-size: 13px;
+}
+
+.add-section {
+   color:#4d515b;
+}
+
+.report-fieldset {
+    margin: 5px 15px;
+    padding: 5px 15px;
+    border-radius: 4px;
+}
+
+
+//styling for all select boxes in reports
+.report-text {
+    padding-left: 3px;
+    width:250px;
+    height:22px !important;
+}
+
+.report-visualization {
+    padding-top: 5px;
+}
+
+.report-visualization-row {
+    padding-top: 3px;
+}
+
+.report-button {
+   color: #2e3458 !important;
+}
+
+.report-section-hr {
+   border-color: #4d515b;
+}
+
+.report-front-image {
+  margin-top:40px;
+  margin-left:275px;
+  height:330px;
+  width:500px;
+}
+
+
+// new UI for reports
+
+.report-section {
+    border:1px solid #bac5ce;
+    background-color: #f7f9fb;
+    padding: 13px 30px;
+    -moz-box-shadow:    inset 0 0 10px #bac5ce;
+    -webkit-box-shadow: inset 0 0 10px #bac5ce;
+    box-shadow: inset 0 0 10px #bac5ce;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+// for the section header icon
+.step-indicator {
+    background-color: @text-color;
+    border-radius: 50%;
+    padding: 6px 12px;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+// for the section header text
+.step-title {
+    margin:30px 0px 15px 0px;
+}
+
+// for bottom spacing
+.bottom-space {
+    margin-bottom:7px;
+}
+
+// add and remove buttons
+.crud_buttons {
+  background-color: #F7F9FB;
+  padding:0px;
+  &:hover,
+  &.active {
+      color:@text-color;
+  }
+}
+
+// operational buttons on visualization list
+.priority_buttons {
+  background-color: #e6e6e6;
+  padding: 2px 6px;
+  &:hover,
+  &.active {
+      color:@text-color;
+  }
+}
+
+.add-section-button {
+  background-color: #fff;
+  color:#D80364;
+  font-size: 15px;
+  padding: 2px 6px;
+  &:hover,
+  &.active {
+      color:#D80364;
+  }
+}
+
+.add-vis-button {
+  background-color: #F7F9FB;
+  color:#D80364;
+  font-size: 13px;
+  &:hover,
+  &.active {
+      color:#D80364;
+  }
+}
+
+// To align report elements in a single line
+.report-element-inline {
+  display: block;
+  float: left;
+  margin-right: 10px;
+}
+
+.newline {
+  clear: both;
+  padding-top: 8px;
+}
+
+.visualization-section-wrapper {
+    margin-bottom: 8px;
+}
+
+// This is added to take care of width of help text
+.report-body-container .tooltiptext {
+    max-width: 350px;
+}
+
+.report-body-container .tooltip-inner {
+    background: black;
+    opacity:1;
+}
+
+.schedule-frequency {
+    width: 110px;
+    height: 22px !important;
+}
+
+.recipients {
+    width: 400px;
+    padding-left: 3px;
+    height: 22px !important;
+}
+
+.shipper-address-url {
+  color: #1A0DAB !important;
+  text-decoration: underline;
+  text-align: center;
+  padding-top:10px;
+  font-size: 16px;
+  a[href]:after { content : "" }
+  a {
+    color:#1a0dab !important;
+  }
+}

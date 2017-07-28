@@ -1,0 +1,33 @@
+.table-vis {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 100%;
+
+  &-error {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1 0 100%;
+
+    text-align: center;
+  }
+
+  &-container {
+    kbn-agg-table-group > .table > tbody > tr > td {
+      border-top: 0px;
+    }
+
+    .pagination-other-pages {
+      justify-content: flex-end;
+    }
+
+    .pagination-size {
+      display: none;
+    }
+  }
+}
+
+.table-vis-metrics-in-percentage {
+   padding-left: 10px;
+   font-size: 14px;
+}

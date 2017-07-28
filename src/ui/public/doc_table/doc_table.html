@@ -1,0 +1,58 @@
+<div
+  ng-if="hits.length"
+  ng-class="{ loading: searchSource.activeFetchCount > 0 }">
+  <paginate ng-if="!infiniteScroll" list="hits" per-page="limit" top-controls="true">
+    <table class="kbn-table table" ng-if="indexPattern" style="page-break-inside:auto">
+      <thead
+        kbn-table-header
+        columns="columns"
+        index-pattern="indexPattern"
+        print-report="printReport"
+        style="display:table-header-group"
+        sorting="sorting">
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in page|limitTo:limit track by row._index+row._type+row._id+row._score"
+          kbn-table-row="row"
+          index="{{$index}}"
+          columns="columns"
+          sorting="sorting"
+          index-pattern="indexPattern"
+          print-report="printReport"
+          style="page-break-inside:avoid; page-break-after:auto;"
+          filter="filter"
+          class="discover-table-row"></tr>
+      </tbody>
+    </table>
+  </paginate>
+
+  <table ng-if="infiniteScroll" class="kbn-table table" ng-if="indexPattern" style="page-break-inside:auto">
+    <thead
+      kbn-table-header
+      columns="columns"
+      index-pattern="indexPattern"
+      style="display:table-header-group"
+      sorting="sorting">
+    </thead>
+    <tbody>
+      <tr ng-repeat="row in hits|limitTo:limit track by row._index+row._type+row._id+row._score"
+        kbn-table-row="row"
+        index="{{$index}}"
+        columns="columns"
+        sorting="sorting"
+        index-pattern="indexPattern"
+        print-report="printReport"
+        style="page-break-inside:avoid; page-break-after:auto;"
+        filter="filter"
+        class="discover-table-row"></tr>
+    </tbody>
+  </table>
+  <kbn-infinite-scroll ng-if="infiniteScroll" more="addRows"></kbn-infinite-scroll>
+  <div class="search-export-link">
+     <a ng-if="!printReport" class="small" ng-click="exportAsCsv(true)"> Export <i aria-hidden="true" class="fa fa-download"></i> </a>
+  </div>
+</div>
+<div ng-if="hits != null && !hits.length" class="table-vis-error">
+  <h2><i class="fa fa-meh-o"></i></h2>
+  <h4>No results found</h4>
+</div>

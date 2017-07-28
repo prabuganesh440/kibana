@@ -1,0 +1,14 @@
+<div class="app-container">
+<!-- Customizing the background color for navigation bar under Preferences -->
+  <nav class="navbar-default navbar-static-top subnav preferences-navbar">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav">
+        <li ng-repeat="section in sections" ng-class="section.class">
+          <a class="navbar-link" kbn-href="{{section.url}}" data-test-subj="{{section.name}}">{{section.display}}</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div role="main" class="settings-section-container {{section.name}}-settings" ng-transclude></div>
+</div>

@@ -1,0 +1,32 @@
+<div ng-controller="KbnMatrixVisController" class="table-vis">
+  <div ng-if="!hasSomeRows && hasSomeRows !== null" class="table-vis-error">
+    <h2 aria-hidden="true"><i aria-hidden="true" class="fa fa-exclamation-triangle"></i></h2>
+    <h4>No results found</h4>
+  </div>
+  <div ng-if="noOfDays > 30 && vis.params.collapseTimeHeaders == true" class="table-vis-error">
+    <h2 aria-hidden="true"><i aria-hidden="true" class="fa fa-exclamation-triangle"></i></h2>
+    <h4>{{exceededNoOfDaysErrorMessage}}</h4>
+  </div>
+  <div ng-if="tableGroups" class="table-vis-container">
+    <div ng-if="vis.params.collapseTimeHeaders == true">
+      <div class="matrix-table-attrs row">
+        <div class="start-time"> Start time: {{ startDate }}</div>
+      </div>
+      <div ng-if="vis.params.enableTimeFormatter" class="matrix-table-attrs row">
+        <div>Data format: {{ outputTimeFormat }}</div>
+      </div>
+    </div>
+    <kbn-agg-table-group
+      group="tableGroups"
+      export-title="vis.title"
+      is-matrix="true"
+      per-page="vis.params.perPage"
+      color-schema="vis.params.colorSchema"
+      interval="vis.params.interval"
+      custom-interval="vis.params.customInterval"
+      custom-interval-type="vis.params.customIntervalType"
+      print-report="printReport"
+    >
+    </kbn-agg-table-group>
+  </div>
+</div>

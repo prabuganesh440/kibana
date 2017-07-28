@@ -1,0 +1,41 @@
+ path_vis_list
+ = pathvislist:path_vis* {return {pathvislist}}
+ 
+ path_vis
+ = connected / node_type_with_dashboard / node_type_wo_dashboard
+
+ connected_list		
+ = connected_list:connected* {return {connected_list}}
+ 
+ connected
+ = connected:connected_syntax newline {return {connected}}
+ 
+ connected_syntax
+ = from:Variable whitespace "isconnectedto" whitespace to:Variable { return {from:from, to:to}}
+
+ node_type_with_dashboard
+ = node_type:node_type_syntax_with_dashboard newline {return {node_type}}
+ 
+ node_type_wo_dashboard
+ = node_type:node_type_syntax_wo_dashboard newline {return {node_type}}
+
+ node_type_syntax_with_dashboard
+ = node:Variable whitespace "name" whitespace name:Variable whitespace "type" whitespace type:Variable whitespace "x" whitespace x:Number whitespace "y" whitespace y:Number whitespace "dashboard" whitespace dashboard:Variable { return {type:type, name:name, node:node, x:x, y:y, dashboard:dashboard}}
+ 
+ node_type_syntax_wo_dashboard
+ = node:Variable whitespace "name" whitespace name:Variable whitespace "type" whitespace type:Variable whitespace "x" whitespace x:Number whitespace "y" whitespace y:Number { return {type:type, name:name, node:node, x:x, y:y}}
+ 
+ Number
+ = v:([0-9-]*) {return {value:v.join("")}}
+
+ Variable
+ = v:([a-zA-Z0-9._-]*) {return {value:v.join("")}}
+
+ ipaddress
+ = v:([0-9.]*) {return {value:v.join("")}}
+
+ whitespace
+ = [ \t]*
+ 
+ newline
+ = [\n]*

@@ -1,0 +1,8 @@
+<!-- HTML for displaying the navigation bar for dashboard names under View option -->
+<ul class="nav navbar-nav" role="navigation">
+    <li ng-repeat="hit in finder.hits">
+      <a ng-href="{{ finder.makeUrl(hit) }}" ng-click="finder.onChoose(hit, $event)">
+          {{hit.title}}
+      </a>
+  </li>
+</ul>

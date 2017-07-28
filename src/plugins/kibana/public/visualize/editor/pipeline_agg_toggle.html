@@ -1,0 +1,18 @@
+<div class="vis-editor-agg-editor-pipeline-toggle">
+   <div class="pipeline-title">
+	   <a ng-click="pipelineAggToggled = !pipelineAggToggled">
+		    <span class="hintbox-label" ng-click="showPipeAggHint = !showTPipeAggHint">
+		        <label>Pipeline Aggregation</label>
+		        <i class="fa fa-info-circle"></i>
+		    </span>
+		    <i aria-hidden="true" class="fa fa-caret-down" ng-class="{'fa-caret-down': pipelineAggToggled, 'fa-caret-right': !pipelineAggToggled}"></i>
+		</a>
+    </div>
+	<div class="hintbox" ng-show="showPipeAggHint">
+		<p>
+		    Pipeline aggregations work on the outputs produced from other aggregations adding information to the output tree
+		</p>
+	</div>
+</div>
+
+

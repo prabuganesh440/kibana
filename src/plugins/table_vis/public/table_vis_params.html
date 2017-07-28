@@ -1,0 +1,34 @@
+<div class="form-group">
+  <label>Per Page</label>
+  <input type="number" ng-model="vis.params.perPage" class="form-control">
+</div>
+
+<div class="checkbox">
+  <label>
+    <input type="checkbox" ng-model="vis.params.showMeticsAtAllLevels">
+    Show metrics for every bucket/level
+  </label>
+</div>
+
+<div class="checkbox">
+  <label>
+    <input type="checkbox" ng-model="vis.params.showPartialRows">
+    Show partial rows
+  </label>
+</div>
+
+<div class="checkbox">
+  <label>
+    <input type="checkbox" ng-model="metricsAtAllLevels" disabled>
+    Calculate metrics for every bucket/level
+  </label>
+</div>
+<div class="checkbox">
+  <label>
+    <input type="checkbox" ng-model="vis.params.metricsInPercentage">
+    Show metrics in percentage
+	<kbn-tooltip text="Enable this to show percentage along with the values in table. Works only for 'Count', 'Sum' or 'Unique Count' metric. Currently not supported for Split Tables" placement="right" append-to-body="1">
+	   <i class="fa fa-question-circle table-vis-metrics-in-percentage"></i>
+	</kbn-tooltip>
+  </label>
+</div>

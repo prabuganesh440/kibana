@@ -8,7 +8,7 @@ define(function (require) {
   require('ui/directives/field_name');
 
 
-  app.directive('discoverField', function ($compile) {
+  app.directive('discoverField', function ($compile,$rootScope) {
     return {
       restrict: 'E',
       template: html,
@@ -60,6 +60,10 @@ define(function (require) {
         };
 
         $scope.toggleDisplay = function (field) {
+          //we are now remove from aliasName
+        // alert(field.name);
+            $rootScope.$emit('removeAliases', { removeField: field.name });
+
           // This is inherited from fieldChooser
           $scope.toggle(field.name);
           if (field.display) $scope.increaseFieldCounter(field);

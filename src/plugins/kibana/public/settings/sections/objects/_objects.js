@@ -84,6 +84,7 @@ define(function (require) {
         $scope.bulkDelete = function () {
           if( $scope.currentTab.service.type === 'dashboard') {
              dash_list = _.pluck($scope.selectedItems, 'id');
+
              if (dash_list.length > 1) {
                alert("Please select only one dashboard for deletion");
                return;
@@ -95,6 +96,7 @@ define(function (require) {
                return;
              }
           }
+          
           // This is done so as to make the alert_title available
           // in the rest api call to vusmartmaps on delete.
           if($scope.currentTab.service.type === 'alert')

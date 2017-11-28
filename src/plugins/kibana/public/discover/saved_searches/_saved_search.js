@@ -21,6 +21,7 @@ define(function (require) {
           title: 'New Saved Search',
           description: '',
           columns: [],
+          aliasName: [],
           hits: 0,
           allowedRolesJSON: '[]',
           sort: [],
@@ -37,6 +38,7 @@ define(function (require) {
       allowedRolesJSON: 'string',
       hits: 'integer',
       columns: 'string',
+      aliasName: 'string',
       sort: 'string',
       version: 'integer'
     };

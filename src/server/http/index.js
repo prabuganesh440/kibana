@@ -1,4 +1,4 @@
-module.exports = function (kbnServer, server, config) {
+  module.exports = function (kbnServer, server, config) {
   let _ = require('lodash');
   let fs = require('fs');
   let Boom = require('boom');

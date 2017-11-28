@@ -36,6 +36,7 @@ define(function (require) {
       restrict: 'A',
       scope: {
         columns: '=',
+        aliasName: '=',
         filter: '=',
         indexPattern: '=',
         printReport: '=',

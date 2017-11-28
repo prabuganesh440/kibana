@@ -4,13 +4,20 @@
     <span>Time <i ng-class="headerClass(indexPattern.timeFieldName)" ng-click="sort(indexPattern.timeFieldName)" tooltip="Sort by time"></i></span>
   </th>
   <th ng-repeat="name in columns">
-    <span class="table-header-name">
-      {{name | shortDots}} <i ng-class="headerClass(name)" ng-click="sort(name)" tooltip="{{tooltip(name)}}" tooltip-append-to-body="1"></i>
+    <span id="S_{{name.replace('@','').replace('.','').replace(':','')}}" ng-init = "AliasFilter(name)" class="ex table-header-name" >
+       <i ng-class="headerClass(name)" ng-click="sort(name)" tooltip="{{tooltip(name)}}" tooltip-append-to-body="1"></i>
     </span>
     <span class="table-header-move">
       <i ng-click="toggleColumn(name)" ng-show="canRemove(name)" class="fa fa-remove" tooltip="Remove column" tooltip-append-to-body="1"></i>
+      <i ng-click="setaliasName(name)" ng-show="canEdit(name)" class="fa fa-pencil-square-o" tooltip="Set Alias Name" tooltip-append-to-body="1"></i>
       <i ng-click="moveLeft(name)" class="fa fa-angle-double-left" ng-show="!$first" tooltip="Move column to the left" tooltip-append-to-body="1"></i>
       <i ng-click="moveRight(name)" class="fa fa-angle-double-right" ng-show="!$last" tooltip="Move column to the right" tooltip-append-to-body="1"></i>
     </span>
+    <div id="{{name.replace('@','').replace('.','').replace(':','')}}" style="display:none;">
+      <label> {{name}} </label><br/>
+            <input id="T_{{name.replace('@','').replace('.','').replace(':','')}}" type="text" name="sd" value="{{name}}" />
+      <i class="fa fa-save" ng-click="saveAlias(name)" tooltip="Save"></i>
+    </div>
+    <!-- <span id="S_{{name}}"></span> -->
   </th>
 </tr>

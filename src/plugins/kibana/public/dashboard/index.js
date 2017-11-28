@@ -363,6 +363,7 @@ define(function (require) {
                     new_search.hits = search.hits;
                     new_search.sort = search.sort;
                     new_search.columns = search.columns;
+                    new_search.aliasName = search.aliasName;
                     new_search.version = search.version;
                     new_search.searchSource = search.searchSource;
                     searchSourceInJson = new_search.searchSource.toJSON()
@@ -395,6 +396,7 @@ define(function (require) {
                     new_search.hits = search.hits;
                     new_search.sort = search.sort;
                     new_search.columns = search.columns;
+                    new_search.aliasName = search.aliasName;
                     new_search.version = search.version;
                     new_search.searchSource = search.searchSource;
                     searchSourceInJson = new_search.searchSource.toJSON()

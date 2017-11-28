@@ -86,16 +86,39 @@ describe('Doc Table', function () {
   };
 
 
+  // describe('es',function(){
+  //   var $elem = angular.element(
+  //     '<thead kbn-table-header columns="columns" index-pattern="indexPattern" sort="sort"></thead>'
+  //   );
+  //
+  //
+  //
+  //   beforeEach(function () {
+  //     init($elem, {
+  //       columns: [],
+  //       sorting: [],
+  //       aliasName: []
+  //     });
+  //   });
+  //   afterEach(function () {
+  //     destroy();
+  //   });
+  //
+  // });
+
   describe('kbnTableHeader', function () {
 
     var $elem = angular.element(
       '<thead kbn-table-header columns="columns" index-pattern="indexPattern" sort="sort"></thead>'
     );
 
+
+
     beforeEach(function () {
       init($elem, {
         columns: [],
         sorting: [],
+        aliasName: []
       });
     });
     afterEach(function () {

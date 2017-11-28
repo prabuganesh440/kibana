@@ -15,7 +15,7 @@ define(function (require) {
   require('ui/courier');
   require('ui/timefilter');
   require('ui/config');
-  require('ui/notify');
+var notify = require('ui/notify');
   require('ui/typeahead');
 
   require('ui/directives/rbac_user_role');
@@ -99,7 +99,7 @@ define(function (require) {
       loaded_report_id: function ($route) {
         return $route.current.params.id;
       }
-    }    
+    }
   })
   .when('/report/print/:id', {
     template: require('plugins/kibana/report/index.html'),
@@ -274,7 +274,7 @@ define(function (require) {
         var duration = moment.duration(time_duration.max.diff(time_duration.min));
         var time_duration_hours = duration.asHours();
 
-        //checking if incoming report is new or existing 
+        //checking if incoming report is new or existing
         //so as to handle the global edit button requirements.
         var category_obj = angular.fromJson(dash.optionsJSON);
 

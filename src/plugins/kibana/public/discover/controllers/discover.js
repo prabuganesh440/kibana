@@ -59,6 +59,7 @@ define(function (require) {
         });
       },
       savedSearch: function (courier, savedSearches, $route) {
+
         return savedSearches.get();
         },
       is_new_search: function () {
@@ -107,7 +108,7 @@ define(function (require) {
       // This flag indicates if new search is being
       // created.
       is_new_search: function ($route) {
-        if( $route.current.params.id === undefined) { 
+        if( $route.current.params.id === undefined) {
           return true;
         }
         else {
@@ -121,7 +122,7 @@ define(function (require) {
   });
 
   app.controller('discover', function ($scope, config, courier, $route, $window, Notifier,
-    AppState, timefilter, Promise, Private, kbnUrl, highlightTags, $http) {
+    AppState, timefilter, Promise, Private, kbnUrl, highlightTags, $http,$rootScope) {
 
     const Vis = Private(require('ui/Vis'));
     const docTitle = Private(require('ui/doc_title'));
@@ -134,6 +135,19 @@ define(function (require) {
     const notify = new Notifier({
       location: 'Discover'
     });
+
+    // alert("new search = "+is_new_search);
+    // alert("saved search = "+loaded_search_id);
+    if(is_new_search)
+    {
+      $rootScope.SearchName = "newsearch";
+      $rootScope.load = false;
+      $rootScope.newReport = true;
+    }
+    else {
+      $rootScope.SearchName = loaded_search_id;
+      $rootScope.load = true;
+    }
 
     $scope.intervalOptions = Private(require('ui/agg_types/buckets/_interval_options'));
     $scope.showInterval = false;
@@ -196,10 +210,13 @@ define(function (require) {
     }
 
     function getStateDefaults() {
+      // alert("init");
+      //  alert(savedSearch.aliasName);
       return {
         query: $scope.searchSource.get('query') || '',
         sort: getSort.array(savedSearch.sort, $scope.indexPattern),
         columns: savedSearch.columns || ['_source'],
+        aliasName : savedSearch.aliasName,
         index: $scope.indexPattern.id,
         interval: 'auto',
         filters: _.cloneDeep($scope.searchSource.getOwn('filter'))
@@ -207,8 +224,9 @@ define(function (require) {
     }
 
     $state.index = $scope.indexPattern.id;
-    $state.sort = getSort.array($state.sort, $scope.indexPattern); 
+    $state.sort = getSort.array($state.sort, $scope.indexPattern);
     $scope.$watchCollection('state.columns', function () {
+      console.log("new column add -------------------------------------------------");
       $state.save();
     });
 
@@ -245,8 +263,12 @@ define(function (require) {
       user_role_can_modify: user_role_can_modify,
       timefield: $scope.indexPattern.timeFieldName,
       savedSearch: savedSearch,
+      // aliasName : savedSearch.aliasName ? JSON.parse(savedSearch.aliasName) : [],
       indexPatternList: $route.current.locals.ip.list
     };
+
+    console.log("my ref---------------------------------------------");
+    console.log(savedSearch);
 
     const init = _.once(function () {
       const showTotal = 5;
@@ -278,6 +300,8 @@ define(function (require) {
         $scope.$listen(queryFilter, 'update', function () {
           return $scope.updateDataSource().then(function () {
             $state.save();
+            // console.console.log("----------------filter------------------------");
+            // console.log($state);
           });
         });
 
@@ -375,11 +399,17 @@ define(function (require) {
     });
 
     $scope.opts.saveDataSource = function () {
+      console.log("-----------------------------saved items--------------------");
+      console.log(savedSearch);
+      // alert($scope.state.aliasName);
+      // alert("New Serch Report = "+savedSearch.title);
+      $rootScope.$emit('saveAliases', { searchName: savedSearch.title });
       return $scope.updateDataSource()
       .then(function () {
         savedSearch.id = savedSearch.title;
         savedSearch.columns = $scope.state.columns;
         savedSearch.sort = $scope.state.sort;
+        savedSearch.aliasName = $scope.state.aliasName;
         savedSearch.allowedRolesJSON = angular.toJson($scope.opts.allowedRoles);
         // if a search is loaded and saved as another
         // search, It is a new search. Hence set the flag to true.
@@ -395,6 +425,7 @@ define(function (require) {
             notify.info('Saved Data Source "' + savedSearch.title + '"');
             if (savedSearch.id !== $route.current.params.id) {
               kbnUrl.change('/discover/{{id}}', { id: savedSearch.id });
+
             } else {
               // Update defaults so that "reload saved query" functions correctly
               $state.setDefaults(getStateDefaults());

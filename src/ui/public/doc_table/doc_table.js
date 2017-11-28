@@ -20,6 +20,7 @@ define(function (require) {
         element: '=',
         sorting: '=',
         columns: '=',
+        aliasName: '=',
         hits: '=?', // You really want either hits & indexPattern, OR searchSource
         indexPattern: '=?',
         printReport: '=?',
@@ -28,11 +29,14 @@ define(function (require) {
         filter: '=?',
       },
       link: function ($scope) {
+        // alert($scope.columns);
+        // alert($scope.aliasName);
         var notify = new Notifier();
         $scope.limit = config.get('discover:sampleSize');
         $scope.persist = {
           sorting: $scope.sorting,
-          columns: $scope.columns
+          columns: $scope.columns,
+          aliasName:$scope.aliasName
         };
 
         var prereq = (function () {
@@ -64,6 +68,7 @@ define(function (require) {
 
           var $state = getAppState();
           $scope.columns.push('_source');
+          // $scope.aliasName.push('_source');
           if ($state) $state.replace();
         });
 
@@ -126,6 +131,7 @@ define(function (require) {
         $scope.toCsv = function (formatted) {
           var rows = $scope.hits;
           var columns = $scope.columns;
+          var aliasName = $scope.aliasName;
           var nonAlphaNumRE = /[^a-zA-Z0-9]/;
           var allDoubleQuoteRE = /"/g;
           var indexPattern = $scope.indexPattern;

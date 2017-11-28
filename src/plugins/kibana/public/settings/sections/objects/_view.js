@@ -98,6 +98,26 @@ define(function (require) {
           }
         };
 
+        var format = /^[a-z0-9\s]*$/i;
+
+        $scope.insertAlias = function(index,id,obj)
+        {
+          if(!format.test(id))
+          {
+            id = id.replace(/[^a-zA-Z_0-9]/g, '');
+          }
+
+         var ex =  es.get({
+            index: $routeParams.id,
+            type: 'alias',
+            id: id
+          })
+          .then(function (response) {
+             // obj._source.columns[index] = obj._source.columns[index] +":"+ response._source.properties.aliasName;
+             obj._source.aliasName[index] = obj._source.columns[index] +":"+response._source.properties.aliasName;
+          });
+        }
+
         $scope.notFound = $routeParams.notFound;
 
         $scope.title = service.type;
@@ -108,12 +128,21 @@ define(function (require) {
           id: $routeParams.id
         })
         .then(function (obj) {
-          $scope.obj = obj;
-          $scope.link = service.urlFor(obj._id);
+          console.log("________________saved object");
+          console.log(obj._source.columns[0]);
+          for(var i=0;i<=obj._source.columns.length-1;i++){
+            $scope.insertAlias(i,obj._source.columns[i],obj);
+          }
 
-          const fields =  _.reduce(obj._source, createField, []);
-          if (service.Class) readObjectClass(fields, service.Class);
-          $scope.fields = _.sortBy(fields, 'name');
+          setTimeout(function(){
+            $scope.obj = obj;
+            $scope.link = service.urlFor(obj._id);
+
+            const fields =  _.reduce(obj._source, createField, []);
+            if (service.Class) readObjectClass(fields, service.Class);
+            $scope.fields = _.sortBy(fields, 'name');
+          },200);
+
         })
         .catch(notify.fatal);
 
@@ -177,7 +206,7 @@ define(function (require) {
 
           _.each($scope.fields, function (field) {
             let value = field.value;
-
+            alert(value+" = "+field.type);
             if (field.type === 'number') {
               value = Number(field.value);
             }

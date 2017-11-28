@@ -20,6 +20,7 @@ define(function (require) {
         columns: '=',
         hits: '=',
         fieldCounts: '=',
+        aliasName:'=',
         state: '=',
         indexPattern: '=',
         indexPatternList: '=',
